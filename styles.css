@@ -1,0 +1,24 @@
+body {
+	display: flex;
+	justify-content: center;
+	margin-top: 5rem;
+}
+
+.card {
+	display: flex;
+	border: 1px solid red;
+}
+
+.card > section {
+	padding: 3rem;
+}
+
+.card > section:nth-child(1) {
+	max-width: 15rem;
+	background-color: aliceblue;
+
+}
+
+.card > section:nth-child(2) {
+	min-width: 15rem;
+}
