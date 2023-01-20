@@ -10,17 +10,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 let url = "https://v2.jokeapi.dev/joke/";
 let checkboxes = [...document.querySelectorAll('input[type="checkbox"]')];
-function isChecked(checkbox) {
-    return checkbox.checked;
-}
+const valueStrings = ["nsfw", "religious", "political", "racist", "sexist", "explicit"];
 checkboxes.forEach(checkbox => {
     checkbox.addEventListener("click", function () {
-        console.log(isChecked(checkbox));
         let checkboxValues = checkboxes.map(checkbox => checkbox.checked);
         console.log(checkboxValues);
+        testCheckboxValues(checkboxValues);
     });
+    function testCheckboxValues(val) {
+        if (val[0] === true) {
+            console.log("sant");
+        }
+        else if (val[0] === false) {
+            console.log("falskt");
+        }
+        if (val[1] === true) {
+            console.log("sant");
+        }
+        else if (val[1] === false) {
+            console.log("falskt");
+        }
+    }
 });
-console.log(checkboxValues);
 function getJoke(joke) {
     return __awaiter(this, void 0, void 0, function* () {
         const response = yield fetch(joke);
