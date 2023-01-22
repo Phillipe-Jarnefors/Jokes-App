@@ -9,29 +9,46 @@
 </head>
 <body>
 	<div class="card">
-		<section class="categories">
-			<div>
-				<input type="checkbox" id="nsfw" name="nsfw" checked="checked">
-				<label for="nsfw">NSFW</label>
-				<input type="checkbox" id="religious" name="religious">
-				<label for="religious">Religious</label>
-			</div>
-			<div>
-				<input type="checkbox" id="political" name="political">
-				<label for="political">Political</label>
-				<input type="checkbox" id="racist" name="racist">
-				<label for="racist">Racist</label>
-			</div>
-			<div>	
-				<input type="checkbox" id="sexist" name="sexist">
-				<label for="sexist">Sexist</label>
-				<input type="checkbox" id="explicit" name="explicit">
-				<label for="explicit">Explicit</label>
-			</div>
-			<button class="search-btn">Search</button>
+		<section>
+			<fieldset>
+				<legend>Categories</legend>
+					<div id="categories"></div>
+			</fieldset>
 		</section>
+
+		<section>
+			<fieldset class="blacklist-section blacklist">
+				<legend>Blacklist</legend>
+				<div>
+					<input type="checkbox" class="blacklist" name="nsfw">
+					<label for="nsfw">NSFW</label>
+				</div>
+				<div>
+					<input type="checkbox" class="blacklist" name="religious">
+					<label for="religious">Religious</label>
+				</div>
+				<div>
+					<input type="checkbox" class="blacklist" name="political">
+					<label for="political">Political</label>
+				</div>
+				<div>
+					<input type="checkbox" class="blacklist" name="racist">
+					<label for="racist">Racist</label>
+				</div>
+				<div>
+					<input type="checkbox" class="blacklist" name="sexist">
+					<label for="sexist">Sexist</label>
+				</div>
+				<div>	
+					<input type="checkbox" class="blacklist" name="explicit">
+					<label for="explicit">Explicit</label>
+				</div>	
+			</fieldset>
+		</section>
+		
 		<section class="show-info">
-			<p>some joke</p>
+			<p id="the-joke">Some joke</p>
+			<p id="explain-joke">Joke explaination</p>
 		</section>
 	</div>
 	<script src="dist/app.js"></script>

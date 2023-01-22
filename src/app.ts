@@ -4,7 +4,6 @@ const categories = document.querySelector('#categories') as HTMLDivElement
 const theJoke = document.querySelector('#the-joke') as HTMLParagraphElement
 const explainJoke = document.querySelector('#explain-joke') as HTMLParagraphElement
 
-
 const valueStrings: string[] = ["", "nsfw", "religious", "political", "racist", "sexist", "explicit"]
 const radioStrings: string[] = ["Any", "Misc", "Programming", "Dark", "Spooky"]
 let checkedBlacklist: string[] = []
@@ -59,10 +58,6 @@ async function getJoke(joke: string) {
         explainJoke.innerHTML = ""
         theJoke.append(data.setup)
         explainJoke.append(data.delivery)
-
-        console.log(checkedBlacklist)
-        console.log(url);
-        console.log(data);
     } 
 }
 

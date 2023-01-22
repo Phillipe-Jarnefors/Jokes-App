@@ -8,34 +8,60 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-let url = "https://v2.jokeapi.dev/joke/";
-let checkboxes = [...document.querySelectorAll('input[type="checkbox"]')];
-const valueStrings = ["nsfw", "religious", "political", "racist", "sexist", "explicit"];
-checkboxes.forEach(checkbox => {
-    checkbox.addEventListener("click", function () {
-        let checkboxValues = checkboxes.map(checkbox => checkbox.checked);
-        console.log(checkboxValues);
-        testCheckboxValues(checkboxValues);
+let url = "https://v2.jokeapi.dev/joke/Any";
+const checkboxes = document.querySelectorAll('.blacklist');
+const categories = document.querySelector('#categories');
+const theJoke = document.querySelector('#the-joke');
+const explainJoke = document.querySelector('#explain-joke');
+const valueStrings = ["", "nsfw", "religious", "political", "racist", "sexist", "explicit"];
+const radioStrings = ["Any", "Misc", "Programming", "Dark", "Spooky"];
+let checkedBlacklist = [];
+function filterBlacklist() {
+    checkboxes.forEach((checkbox, index) => {
+        checkbox.addEventListener("change", e => {
+            if (checkbox.checked) {
+                if (!checkedBlacklist.includes(valueStrings[index])) {
+                    checkedBlacklist.unshift(valueStrings[index]);
+                }
+            }
+            else {
+                checkedBlacklist = checkedBlacklist.filter(blacklisted => blacklisted !== valueStrings[index]);
+                url = "https://v2.jokeapi.dev/joke/Any";
+            }
+            let addBlacklistString = checkedBlacklist.join(",");
+            url += "?blacklistFlags=" + addBlacklistString;
+            getJoke(url);
+        });
     });
-    function testCheckboxValues(val) {
-        if (val[0] === true) {
-            console.log("sant");
-        }
-        else if (val[0] === false) {
-            console.log("falskt");
-        }
-        if (val[1] === true) {
-            console.log("sant");
-        }
-        else if (val[1] === false) {
-            console.log("falskt");
+}
+function radioSelect() {
+    categories.innerHTML = radioStrings.map((radio) => `<div>
+        <input type="radio" name="radio-value" value="${radio}" id="${radio}">
+        <label for="${radio}">${radio}</label>
+    </div>`).join(' ');
+    const radioButtons = document.querySelectorAll('input[name="radio-value"]');
+    for (const radioButton of radioButtons) {
+        radioButton.addEventListener("change", showSelected);
+    }
+    function showSelected(e) {
+        const target = e.target;
+        if (target.checked) {
+            url = `https://v2.jokeapi.dev/joke/${target.value}`;
+            getJoke(url);
         }
     }
-});
+}
 function getJoke(joke) {
     return __awaiter(this, void 0, void 0, function* () {
         const response = yield fetch(joke);
         const data = yield response.json();
-        let valueOfCheckbox = url += "";
+        if (data.type === "twopart") {
+            theJoke.innerHTML = "";
+            explainJoke.innerHTML = "";
+            theJoke.append(data.setup);
+            explainJoke.append(data.delivery);
+        }
     });
 }
+filterBlacklist();
+radioSelect();
