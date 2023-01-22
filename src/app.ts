@@ -1,42 +1,71 @@
-let url: string = "https://v2.jokeapi.dev/joke/"
-let checkboxes = [...document.querySelectorAll('input[type="checkbox"]')] as HTMLInputElement[];
-const valueStrings: string[] = ["nsfw", "religious", "political", "racist", "sexist", "explicit"]
+let url: string = "https://v2.jokeapi.dev/joke/Any"
+const checkboxes = document.querySelectorAll('.blacklist') as NodeListOf<HTMLInputElement>;
+const categories = document.querySelector('#categories') as HTMLDivElement
+const theJoke = document.querySelector('#the-joke') as HTMLParagraphElement
+const explainJoke = document.querySelector('#explain-joke') as HTMLParagraphElement
 
-checkboxes.forEach(checkbox => {
-    checkbox.addEventListener("click", function() {
-        let checkboxValues = checkboxes.map(checkbox => checkbox.checked);
-        console.log(checkboxValues);
-        
-        testCheckboxValues(checkboxValues)
-    });
 
-    function testCheckboxValues(val: boolean[]) {
-        if (val[0] === true) {
-            console.log("hej");
-        } else if (val[0] === false) {
-            console.log("då");
-        } 
+const valueStrings: string[] = ["", "nsfw", "religious", "political", "racist", "sexist", "explicit"]
+const radioStrings: string[] = ["Any", "Misc", "Programming", "Dark", "Spooky"]
+let checkedBlacklist: string[] = []
 
-        if (val[1] === true) {
-            console.log("fizz");
-        } else if (val[1] === false) {
-            console.log("buzz");
-        } 
-
-        if (val[2] === true) {
-            console.log("kent");
-        } else if (val[2] === false) {
-            console.log("lars");
-        } 
-    }
+function filterBlacklist() {
+    checkboxes.forEach((checkbox, index) => {
+        checkbox.addEventListener("change", e => {
+            if (checkbox.checked) {
+                if (!checkedBlacklist.includes(valueStrings[index])) {
+                    checkedBlacklist.unshift(valueStrings[index]);
+                }
+            } else {
+                checkedBlacklist = checkedBlacklist.filter(blacklisted => blacklisted !== valueStrings[index])
+                url = "https://v2.jokeapi.dev/joke/Any"
+            }
+            let addBlacklistString = checkedBlacklist.join(",")
+            url += "?blacklistFlags=" + addBlacklistString
     
-});
-
-
-async function getJoke(joke: string) {
-	const response = await fetch(joke)
-	const data = await response.json()
-	let valueOfCheckbox = 
-	url += ""
+            getJoke(url)
+        })
+    })
 }
 
+function radioSelect() {
+    categories.innerHTML = radioStrings.map((radio) => 
+    `<div>
+        <input type="radio" name="radio-value" value="${radio}" id="${radio}">
+        <label for="${radio}">${radio}</label>
+    </div>`
+    ).join(' ')
+    
+    const radioButtons = document.querySelectorAll('input[name="radio-value"]') as NodeListOf<HTMLInputElement>
+    for (const radioButton of radioButtons) {
+        radioButton.addEventListener("change", showSelected)
+    }
+    
+    function showSelected(e: Event) {
+        const target = e.target as HTMLInputElement;
+        if (target.checked) {
+            url = `https://v2.jokeapi.dev/joke/${target.value}`     
+            getJoke(url)     
+        }    
+    }
+}
+
+async function getJoke(joke: string) {
+    const response = await fetch(joke)
+    const data = await response.json()
+  
+    if (data.type === "twopart") {
+        theJoke.innerHTML = ""
+        explainJoke.innerHTML = ""
+        theJoke.append(data.setup)
+        explainJoke.append(data.delivery)
+
+        console.log(checkedBlacklist)
+        console.log(url);
+        console.log(data);
+    } 
+}
+
+filterBlacklist()
+radioSelect()
+//Phil
