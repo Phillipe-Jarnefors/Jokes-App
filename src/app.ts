@@ -47,7 +47,16 @@ function radioSelect() {
             getJoke(url)     
         }    
     }
+    radioButtons[0].checked = true
 }
+
+//Check all boxes when load site.
+function checkTheBoxes() {
+    checkboxes.forEach(box => {
+        box.checked = true;
+    })
+}
+checkTheBoxes()
 
 async function getJoke(joke: string) {
     const response = await fetch(joke)

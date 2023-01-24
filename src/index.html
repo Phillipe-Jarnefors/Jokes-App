@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="scss/main.scss">
+</head>
+<body>
+
+	
+
+	<article class="wrapper">
+		<header class="header">
+			<h1>The Joke App</h1>
+		</header>
+
+		<div class="card">
+			<section>
+				<fieldset>
+					<legend>Categories</legend>
+						<div id="categories"></div>
+				</fieldset>
+			</section>
+	
+			<section>
+				<fieldset class="blacklist-section blacklist">
+					<legend>Blacklist ( optional )</legend>
+					<div>
+						<input type="checkbox" id="nsfw" class="blacklist" name="nsfw">
+						<label for="nsfw">NSFW</label>
+					</div>
+					<div>
+						<input type="checkbox" class="blacklist" name="religious">
+						<label for="religious">Religious</label>
+					</div>
+					<div>
+						<input type="checkbox" class="blacklist" name="political">
+						<label for="political">Political</label>
+					</div>
+					<div>
+						<input type="checkbox" class="blacklist" name="racist">
+						<label for="racist">Racist</label>
+					</div>
+					<div>
+						<input type="checkbox" class="blacklist" name="sexist">
+						<label for="sexist">Sexist</label>
+					</div>
+					<div>	
+						<input type="checkbox" class="blacklist" name="explicit">
+						<label for="explicit">Explicit</label>
+					</div>	
+				</fieldset>
+			</section>
+		</div>
+
+			<section class="show-info">
+				<fieldset class="joke">
+					<legend>The Joke</legend>
+					<p id="the-joke">Some joke</p>
+				</fieldset>
+				<fieldset class="joke">
+					<legend>Explaination</legend>
+					<p id="explain-joke">Joke explaination</p>
+				</fieldset>
+			</section>
+
+			<footer>
+				<p>Developed by Phillipe Järnefors. Used API: https://v2.jokeapi.dev</p>
+			</footer>
+
+	</article>
+
+	<script src="app.ts"></script>
+</body>
+</html>
