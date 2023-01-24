@@ -3,3 +3,5 @@
 
 You can choose type of joke and blacklist diffrent kinds of jokes you dont wanna see.
 
+Tools used: Scss, TypeScript and Parcel Compiler.
+
